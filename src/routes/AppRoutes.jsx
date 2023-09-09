@@ -1,9 +1,9 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Login } from '../pages/Login'
-import { Home } from '../pages/Home'
 import { PrivateRoutes } from './PrivateRoutes'
-import { PaginaNaoEncontrada } from '../components/pages/PaginaNaoEncontrada'
+import { PageNotFound } from '../components/pages/PageNotFound'
+import { Login } from '../components/pages/Login/Login'
+import { Home } from '../components/pages/Home/Home'
 
 export const AppRoutes = () => {
   return (
@@ -13,7 +13,7 @@ export const AppRoutes = () => {
             <Route path='/home' element={<PrivateRoutes />}>
                 <Route path='/home' element={<Home />} />   
             </Route>
-            <Route path='*' element={<PaginaNaoEncontrada />} />
+            <Route path='*' element={<PageNotFound />} />
         </Routes>
     </BrowserRouter>
   )

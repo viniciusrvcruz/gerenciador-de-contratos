@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const PaginaNaoEncontrada = () => {
+export const PageNotFound = () => {
   return (
     <div>PaginaNaoEncontrada</div>
   )
