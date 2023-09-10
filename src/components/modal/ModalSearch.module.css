@@ -1,0 +1,86 @@
+.modalSearch {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    top: 67px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: #F5F5F5;
+}
+
+.modalSearchContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 15px;
+}
+
+.modalSearchContainer > div {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    width: 100%;
+    padding: 0px 10px;
+    border-radius: 10px;
+}
+
+.modalSearchContainer > div img {
+    width: 35px;
+    cursor: pointer;
+}
+
+.modalSearchContainer > div input {
+    border: none;
+    background-color: transparent;
+    width: 70%;
+    padding-left: 5px;
+    outline: none;
+}
+
+.resultSearch {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.resultSearch > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.44);
+}
+
+.resultSearch > div img {
+    width: 50px;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.artistName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}   
+
+@media (min-width: 480px) {
+    .modalSearchContainer > div input {
+        width: 85%;
+    }
+}  
+
+@media (min-width: 1024px) {
+    .modalSearchContainer {
+        width: 70%;
+    }
+
+    .modalSearchContainer > div input {
+        width: 90%;
+    }
+}   
