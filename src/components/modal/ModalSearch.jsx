@@ -1,16 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from './ModalSearch.module.css'
 import searchIcon from '../../assets/search_icon.png'
 import backIcon from '../../assets/arrow_back_icon.png'
+import userIcon from '../../assets/user_icon.png'
 import { AuthContext } from '../../contexts/authProvider'
 
 export const ModalSearch = ({ isOpen, setOpen }) => {
 
     const { tokenApi, getTokenApi } = useContext(AuthContext)
+    const inputRef = useRef(null);
     const [nameArtist, setNameArtist] = useState('')
     const [result, setResult] = useState('')
 
-    const resultSearchArtist = async () => {
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+          // Chame sua função aqui
+          resultSearchArtist();
+        }
+      };
+
+    const resultSearchArtist = async () => {    
 
         console.log('teste', !tokenApi.expires_in)
         if (!tokenApi || !tokenApi.expires_in) {
@@ -20,31 +29,30 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
         const searchUrl = `https://api.spotify.com/v1/search?q=${encodeURIComponent(nameArtist)}&type=artist`;
         
         const requestOptions = {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${tokenApi}`
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${tokenApi}`
+            }
         }
-    }
-    
-    fetch(searchUrl, requestOptions)
-      .then(response => response.json())
-      .then(data => {
-        // A resposta contém informações sobre os artistas correspondentes ao nome pesquisado.
-        console.log(data);
-        const artists = data.artists.items
-        console.log(data.artists.items);
-        setResult(artists)
-        result.forEach((e) => {
-            console.log('nome', e.name)
+        
+        fetch(searchUrl, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            // A resposta contém informações sobre os artistas correspondentes ao nome pesquisado.
+            const artists = data.artists.items
+            setResult(artists)
         })
-      })
-      .catch(error => {
-        console.error('Erro ao pesquisar o artista:', error);
-      });
+        .catch(error => {
+            console.error('Erro ao pesquisar o artista:', error);
+        });
     }
 
     useEffect(() => {
         setResult('')
+        if(isOpen){
+            inputRef.current.focus();
+        }
+        
     }, [isOpen])
 
     if (isOpen) {
@@ -53,16 +61,16 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
                 <div className={styles.modalSearchContainer}>
                     <div>
                         <img src={backIcon} alt="back Icon" onClick={() => setOpen(!isOpen)} />
-                        <input type="text" placeholder='Pesquise por artista ou banda' onChange={(e) => setNameArtist(e.target.value)}/>
-                        <img src={searchIcon} alt="Search Icon" onClick={resultSearchArtist} />
+                        <input type="text" placeholder='Pesquise por artista ou banda' onChange={(e) => setNameArtist(e.target.value)} ref={inputRef} onKeyDown={handleKeyDown}/>
+                        <button className={styles.searchButton} onClick={resultSearchArtist}><img src={searchIcon} alt="Search Icon" /></button>
                     </div>
                     <section className={styles.resultSearch}>
                         {result && result.map((artist) => (
                             <div>
-                            <img src={artist.images[0] ? artist.images[0].url : "https://lh3.googleusercontent.com/a/ACg8ocIR8DC20aNHG3BIlV5ykjg-KtM3ssfpm4waaCsdOhz6iw=s96-c"} alt="Image" />
+                            <img src={artist.images[0] ? artist.images[0].url : userIcon} alt="Image" />
                             <div className={styles.artistName}>
                                 <h3>{artist.name}</h3>
-                                <h3>Seguidores: {artist.followers ? artist.followers.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 'Indefinido'}</h3>
+                                <h4>Seguidores: {artist.followers ? artist.followers.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 'Indefinido'}</h4>
                             </div>
                         </div>
                         ))}
@@ -71,7 +79,7 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
             </div>
         )
     } else {
-        <></>
+        return <></>
     }
 
 }
