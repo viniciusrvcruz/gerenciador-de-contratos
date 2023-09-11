@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { PrivateRoutes } from './PrivateRoutes'
-import { PageNotFound } from '../components/pages/PageNotFound'
-import { Login } from '../components/pages/Login/Login'
-import { Home } from '../components/pages/Home/Home'
+import { PageNotFound } from '../pages/PageNotFound'
+import { Login } from '../pages/Login/Login'
+import { Home } from '../pages/Home/Home'
 
 import { AuthContext } from '../contexts/authProvider'
 import { Header } from '../components/header/Header'

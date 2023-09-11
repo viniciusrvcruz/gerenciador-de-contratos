@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import searchIcon from '../../../../assets/search_icon.png'
+import searchIcon from '../../../assets/search_icon.png'
 import styles from './Main.module.css'
-import { ModalSearch } from '../../../modal/ModalSearch'
+import { ModalSearch } from '../../../components/modal/ModalSearch'
 
 export const Main = () => {
 

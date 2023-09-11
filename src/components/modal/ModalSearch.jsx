@@ -4,6 +4,7 @@ import searchIcon from '../../assets/search_icon.png'
 import backIcon from '../../assets/arrow_back_icon.png'
 import userIcon from '../../assets/user_icon.png'
 import { AuthContext } from '../../contexts/authProvider'
+import { Link } from 'react-router-dom'
 
 export const ModalSearch = ({ isOpen, setOpen }) => {
 
@@ -39,6 +40,7 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
         .then(response => response.json())
         .then(data => {
             // A resposta contém informações sobre os artistas correspondentes ao nome pesquisado.
+            console.log(data)
             const artists = data.artists.items
             setResult(artists)
         })
@@ -66,13 +68,13 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
                     </div>
                     <section className={styles.resultSearch}>
                         {result && result.map((artist) => (
-                            <div>
-                            <img src={artist.images[0] ? artist.images[0].url : userIcon} alt="Image" />
-                            <div className={styles.artistName}>
-                                <h3>{artist.name}</h3>
-                                <h4>Seguidores: {artist.followers ? artist.followers.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 'Indefinido'}</h4>
-                            </div>
-                        </div>
+                            <Link to={`/contract/${artist.id}`}>
+                                <img src={artist.images[0] ? artist.images[0].url : userIcon} alt="Image" />
+                                <div className={styles.artistName}>
+                                    <h3>{artist.name}</h3>
+                                    <h4>Seguidores: {artist.followers ? artist.followers.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 'Indefinido'}</h4>
+                                </div>
+                            </Link>
                         ))}
                     </section>
                 </div>
