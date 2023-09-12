@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { AuthContext } from "../../contexts/authProvider"
+import { AuthContext } from "../../contexts/AuthProvider"
 import { Navigate } from "react-router-dom"
 import styles from './Login.module.css'
 import imgGoogle from '../../assets/google_icon.png'

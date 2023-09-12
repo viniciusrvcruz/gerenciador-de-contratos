@@ -1,0 +1,67 @@
+.contractFinalized {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.712);
+}
+
+.contractFinalized > div {
+    width: 85%;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #F5F5F5   ;
+}
+
+.contractFinalized > div h2 {
+    color: black;
+    font-size: 1.5em;
+}
+
+.contractFinalized > div h2 span {
+    font-size: 1.2em;
+    color: green;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    font-size: .8em;
+}
+
+.buttons a {
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    padding: 10px 0px;
+    margin: 25px auto 0px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.09);
+}
+
+@media (min-width: 1024px) {
+    .contractFinalized > div {
+        width: 500px;
+    }
+
+    .contractFinalized > div h2 {
+        font-size: 2em;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        font-size: .8em;
+    }
+}

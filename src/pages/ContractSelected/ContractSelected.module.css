@@ -1,0 +1,76 @@
+.contract {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 30px;
+}
+
+.contract h1 {
+    margin-bottom: 35px;
+}
+
+.back {
+    position: absolute;
+    left: 20px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.contract > div {
+    display: flex;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.contract > div img {
+    width: 60px;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.artistInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.artistInfo h2 {
+    font-size: 1.3em;
+}
+
+.artistInfo h2, .artistInfo h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.contract section {
+    width: 100%;
+}
+
+.contract section h3 {
+    color: rgba(0, 0, 0, 0.596);
+    margin-bottom: 20px;
+}
+
+.contract section button {
+    background-color: rgb(255, 156, 156);
+    font-weight: bold;
+    padding: 10px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.603);
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.09);
+}
+
+
+@media (min-width: 1024px) {
+    .contract {
+        padding: 20px 250px;
+    }
+
+    .artistInfo h2, .artistInfo h3 {
+        font-size: 1.5em;
+    }
+}

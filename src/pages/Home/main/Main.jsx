@@ -1,12 +1,32 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import searchIcon from '../../../assets/search_icon.png'
 import styles from './Main.module.css'
 import { ModalSearch } from '../../../components/modal/ModalSearch'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../../../components/config/FirebaseConfig'
+import { AuthContext } from '../../../contexts/AuthProvider'
 
 export const Main = () => {
 
+  const { user } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
+  const [contracts, setContracts] = useState('')
+
+  const getContracts = async () => {
+    const querySnapshot = await getDocs(collection(db, "users", user.uid, "contracts"));
+
+        //setDados(querySnapshot.data().treino)
+        const contractsRes = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        setContracts(contractsRes)
+  }
+
+  useEffect(() => {
+    getContracts()
+  }, [])
 
   return (
     <main className={styles.main}>
@@ -24,39 +44,19 @@ export const Main = () => {
               <h2>+</h2>
               <h3>Adicione um <br/>contrato</h3>
             </div>  */}
-            <div className={styles.contracts}>
+            {contracts > [0] ? contracts.map((contract, index) => (
+              <Link to={`/mycontracts/${contract.id}`} className={styles.contracts} key={index}>
               <div className={styles.artistName}>
-                <img src="https://lh3.googleusercontent.com/a/ACg8ocIR8DC20aNHG3BIlV5ykjg-KtM3ssfpm4waaCsdOhz6iw=s96-c" alt="" />
-                <h2>Nome do artistaffffffffffffffffff</h2>
+                <img src={contract.image} alt="Imagem" />
+                <h2>{contract.name}</h2>
               </div>
-              <h3>Cachê: <span>R$ 5.000,00</span></h3>
-              <h3>Data: <span>10/09/2023</span></h3>
-            </div>
-            <div className={styles.contracts}>
-              <div className={styles.artistName}>
-                <img src="https://lh3.googleusercontent.com/a/ACg8ocIR8DC20aNHG3BIlV5ykjg-KtM3ssfpm4waaCsdOhz6iw=s96-c" alt="" />
-                <h2>Nome do artista teste</h2>
-              </div>
-              <h3>Cachê: <span>R$ 5.000,00</span></h3>
-              <h3>Data: <span>10/09/2023</span></h3>
-            </div>
-            <div className={styles.contracts}>
-              <div className={styles.artistName}>
-                <img src="https://lh3.googleusercontent.com/a/ACg8ocIR8DC20aNHG3BIlV5ykjg-KtM3ssfpm4waaCsdOhz6iw=s96-c" alt="" />
-                <h2>Nome</h2>
-              </div>
-              <h3>Cachê: <span>R$ 5.000,00</span></h3>
-              <h3>Data: <span>10/09/2023</span></h3>
-            </div>
-            <div className={styles.contracts}>
-              <div className={styles.artistName}>
-                <img src="https://lh3.googleusercontent.com/a/ACg8ocIR8DC20aNHG3BIlV5ykjg-KtM3ssfpm4waaCsdOhz6iw=s96-c" alt="" />
-                <h2>Nome do artistaffffffffffffffffff</h2>
-              </div>
-              <h3>Cachê: <span>R$ 5.000,00</span></h3>
-              <h3>Data: <span>10/09/2023</span></h3>
-            </div>
-            <div></div>
+              <h3>Cachê: <span>R$ {contract.cache}</span></h3>
+              <h3>Data: <span>{contract.date}</span></h3>
+            </Link>
+              )) : <div className={styles.addContract} onClick={() => setOpen(!open)}>
+                <h2>+</h2>
+                <h3>Adicione um <br/>contrato</h3>
+              </div>}
         </div>
     </main>
   )

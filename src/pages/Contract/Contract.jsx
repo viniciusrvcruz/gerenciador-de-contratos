@@ -1,26 +1,47 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styles from './Contract.module.css'
-import { AuthContext } from '../../contexts/authProvider'
+import { AuthContext } from '../../contexts/AuthProvider'
 import { useParams } from 'react-router-dom'
 import userIcon from '../../assets/user_icon.png'
 import backIcon from '../../assets/arrow_back_icon.png'
 import { ModalContractFinalized } from '../../components/modal/ModalContractFinalized'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '../../components/config/FirebaseConfig'
 
 export const Contract = () => {
-    const { tokenApi, getTokenApi } = useContext(AuthContext)
+    const { user, tokenApi, getTokenApi } = useContext(AuthContext)
     const { idArtist } = useParams();
 
     const [open, setOpen] = useState(false)
     const [nameArtist, setNameArtist] = useState('')
     const [imageArtist, setImageArtist] = useState('')
     const [genreArtist, setGenreArtist] = useState('')
+    const [cache, setCache] = useState('')
     const [date, setDate] = useState('')
+    const [address, setAddress] = useState('')
+
+    const saveContract = async (e) => {
+        e.preventDefault()
+
+        try {
+          const docRef = await addDoc(collection(db, "users", user.uid, "contracts"), {
+            name: nameArtist,
+            image: imageArtist,
+            genre: genreArtist,
+            cache: cache,
+            date: date,
+            address: address
+          });
+          console.log("Document written with ID: ", docRef.id);
+          setOpen(true)
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+    }
 
     useEffect(() => {
 
-        if (!tokenApi || !tokenApi.expires_in) {
-            getTokenApi()
-        }
+        getTokenApi()
 
         const searchUrl = `https://api.spotify.com/v1/artists/${idArtist}`;
 
@@ -67,16 +88,16 @@ export const Contract = () => {
                 <h3>Gênero: {genreArtist}</h3>
             </div>
         </div>
-        <form>
-            <h2>Cachê <span>*</span></h2>
-            <input type="text" placeholder='Informe o cachê do artista' required/>
+        <form onSubmit={saveContract}>
+            <h2>Cachê (Digite só os números e a vírgula)<span>*</span></h2>
+            <input type="text" placeholder='Informe o cachê do artista' onChange={(e) => setCache(e.target.value)} required />
             <h2>Data do evento <span>*</span></h2>
-            <input type="date" required onChange={(e) => setDate(e.target.value)}/>
+            <input type="date" onChange={(e) => setDate(e.target.value)} required />
             <h2>Endereço do evento <span>*</span></h2>
-            <input type="text" placeholder='Informe o endereço do evento' required/>
+            <input type="text" placeholder='Informe o endereço do evento' onChange={(e) => setAddress(e.target.value)} required/>
             <button type="submit">Finalizar</button>
+            <ModalContractFinalized isOpen={open} />
         </form>
-        <ModalContractFinalized isOpen={open} setOpen={setOpen} />
     </div>
   )
 }

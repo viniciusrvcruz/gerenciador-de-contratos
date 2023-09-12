@@ -55,10 +55,15 @@
     width: 100%;
 }
 
+.contract form h2 {
+    font-size: 1em;
+}
+
 
 .contract form input {
     width: 100%;
     height: 40px;
+    font-size: 1em;
     color: black;
     padding: 5px 10px;
     margin: 10px 0px 20px;

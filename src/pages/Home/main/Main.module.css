@@ -5,7 +5,7 @@
 }
 
 .main > h2 {
-    margin: 20px 0px 10px;
+    margin: 20px 0px 0px;
     font-size: 1.2em;
 }
 
@@ -80,6 +80,8 @@
 
 .contracts {
     display: inline-block;
+    text-decoration: none;
+    color: black;
     padding: 10px 20px;
     margin: 20px 20px 20px 0px;
     width: 220px;
@@ -105,7 +107,8 @@
 }
 
 .contracts img {
-    width: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 5px;
 }
 
@@ -126,7 +129,7 @@
 
 @media (min-width: 1024px) {
     .main {
-        padding: 20px 80px;
+        padding: 20px 100px;
     }
 
     .main > h2 {
@@ -145,10 +148,13 @@
         margin: 20px;
         width: 240px;
         height: 140px;
+        text-decoration: none;
+        color: black;
     }
     
     .contracts img {
-        width: 50px;
+        width: 55px;
+        height: 55px;
     }
 
     .artistName h2 {
@@ -156,6 +162,7 @@
     }
 
     .contracts h3 {
+
         font-size: 1.2em;
     }
 }   

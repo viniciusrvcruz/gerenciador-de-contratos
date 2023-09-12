@@ -3,7 +3,7 @@ import styles from './ModalSearch.module.css'
 import searchIcon from '../../assets/search_icon.png'
 import backIcon from '../../assets/arrow_back_icon.png'
 import userIcon from '../../assets/user_icon.png'
-import { AuthContext } from '../../contexts/authProvider'
+import { AuthContext } from '../../contexts/AuthProvider'
 import { Link } from 'react-router-dom'
 
 export const ModalSearch = ({ isOpen, setOpen }) => {
