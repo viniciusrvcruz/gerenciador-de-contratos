@@ -1,0 +1,152 @@
+.contract {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 30px;
+}
+
+.back {
+    position: absolute;
+    left: 20px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.contract span {
+    color: rgb(201, 0, 0);
+    font-size: 20px;
+}
+
+.contract p {
+    margin-bottom: 35px;
+}
+
+.contract > div {
+    display: flex;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.contract > div img {
+    width: 60px;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.artistInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.artistInfo h2 {
+    font-size: 1.3em;
+}
+
+.artistInfo h2, .artistInfo h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.contract form {
+    width: 100%;
+}
+
+
+.contract form input {
+    width: 100%;
+    height: 40px;
+    color: black;
+    padding: 5px 10px;
+    margin: 10px 0px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.44);
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.09);
+}
+
+.contract form input::placeholder {
+    color: rgba(0, 0, 0, 0.658);
+}
+
+.contract form button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: #45A1EB;
+    margin: 15px 0px 40px;
+    border: 1px solid rgba(0, 0, 0, 0.44);
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.09);
+    cursor: pointer;
+}
+
+@media (min-width: 720px) {
+    .contract {
+        padding: 20px 70px;
+    }
+
+    .back {
+        left: 60px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .contract {
+        margin-top: 15px;
+    }
+    
+    .contract h1 {
+        font-size: 3em;
+    }
+
+    .contract form, .contract > div {
+        width: 45%;
+    }
+
+    .back {
+        left: 60px;
+    }
+    
+    .contract > div img {
+        width: 90px;
+        margin-right: 20px;
+        border-radius: 10px;
+    }
+    
+    .artistInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .artistInfo h2 {
+        font-size: 1.6em;
+    }
+
+    .artistInfo h3 {
+        font-size: 1.4em;
+    }
+
+    .contract form h2 {
+        font-size: 1.3em;
+    } 
+
+    .contract form input {
+        height: 50px;
+        font-size: 1em;
+        padding-left: 15px;
+    }
+
+    .contract form button {
+        height: 50px;
+    }
+}

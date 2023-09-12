@@ -67,8 +67,8 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
                         <button className={styles.searchButton} onClick={resultSearchArtist}><img src={searchIcon} alt="Search Icon" /></button>
                     </div>
                     <section className={styles.resultSearch}>
-                        {result && result.map((artist) => (
-                            <Link to={`/contract/${artist.id}`}>
+                        {result && result.map((artist, id) => (
+                            <Link to={`/contract/${artist.id}`} key={id}>
                                 <img src={artist.images[0] ? artist.images[0].url : userIcon} alt="Image" />
                                 <div className={styles.artistName}>
                                     <h3>{artist.name}</h3>
