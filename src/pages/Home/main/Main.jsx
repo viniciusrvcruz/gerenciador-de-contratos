@@ -2,26 +2,28 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import searchIcon from '../../../assets/search_icon.png'
 import styles from './Main.module.css'
-import { ModalSearch } from '../../../components/modal/ModalSearch'
+import { ModalSearch } from '../../../components/modal/ModalSearch/ModalSearch'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../../components/config/FirebaseConfig'
 import { AuthContext } from '../../../contexts/AuthProvider'
+import { Loading } from '../../../components/loading/Loading'
 
 export const Main = () => {
 
   const { user } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
   const [contracts, setContracts] = useState('')
+  const [removeLoading, setRemoveLoading] = useState(false)
 
   const getContracts = async () => {
     const querySnapshot = await getDocs(collection(db, "users", user.uid, "contracts"));
 
-        //setDados(querySnapshot.data().treino)
         const contractsRes = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }))
         setContracts(contractsRes)
+        setRemoveLoading(true)
   }
 
   useEffect(() => {
@@ -40,10 +42,6 @@ export const Main = () => {
         <ModalSearch isOpen={open} setOpen={setOpen}/>
         <h2>Meus contratos</h2>
         <div className={styles.myContracts}>   
-            {/* <div className={styles.addContract} onClick={() => setOpen(!open)}>
-              <h2>+</h2>
-              <h3>Adicione um <br/>contrato</h3>
-            </div>  */}
             {contracts > [0] ? contracts.map((contract, index) => (
               <Link to={`/mycontracts/${contract.id}`} className={styles.contracts} key={index}>
               <div className={styles.artistName}>
@@ -57,6 +55,7 @@ export const Main = () => {
                 <h2>+</h2>
                 <h3>Adicione um <br/>contrato</h3>
               </div>}
+              {!removeLoading && <Loading />}
         </div>
     </main>
   )

@@ -5,11 +5,15 @@ import { useParams } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../components/config/FirebaseConfig'
 import styles from './ContractSelected.module.css'
+import { ModalConfirmDel } from '../../components/modal/ModalContractDel/ModalContractDel'
+import { Loading } from '../../components/loading/Loading'
 
 export const ContractSelected = () => {
     const { user } = useContext(AuthContext)
     const { idContract } = useParams();
     const [contract, setContract] = useState('')
+    const [open, setOpen] = useState(false)
+    const [removeLoading, setRemoveLoading] = useState(false)
 
 
     const getContracts = async () => {
@@ -18,6 +22,7 @@ export const ContractSelected = () => {
 
         if (docSnap.exists()) {
             setContract(docSnap.data())
+            setRemoveLoading(true)
           } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
@@ -47,12 +52,13 @@ export const ContractSelected = () => {
                     <h3>{contract.date}</h3>
                     <h2>Endereço do evento</h2>
                     <h3>{contract.address}</h3>
-                    <button>Excluir Contrato</button>
+                    <button onClick={() => setOpen(!open)}>Excluir Contrato</button>
+                    <ModalConfirmDel user={user} idContract={idContract} isOpen={open} setOpen={setOpen} nameArtist={contract.name} />
                 </section>
             </div>
           )
     } else {
-        return <></>
+        return <Loading />
     }
  
 }

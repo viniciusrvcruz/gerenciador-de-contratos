@@ -1,0 +1,46 @@
+.modalConfirmDel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.712);
+}
+
+.modalConfirmDel > div {
+    width: 85%;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #F5F5F5;
+}
+
+.buttons {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.buttons button {
+    cursor: pointer;
+}
+
+.cancel {
+    background-color: transparent !important;
+    color: rgb(102, 0, 0);
+    margin-right: 10px;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+@media (min-width: 1024px) {
+    .modalConfirmDel > div {
+        width: 30%;
+        padding: 20px;
+        border-radius: 20px;
+        background-color: #F5F5F5;
+    }
+}

@@ -4,9 +4,10 @@ import { AuthContext } from '../../contexts/AuthProvider'
 import { useParams } from 'react-router-dom'
 import userIcon from '../../assets/user_icon.png'
 import backIcon from '../../assets/arrow_back_icon.png'
-import { ModalContractFinalized } from '../../components/modal/ModalContractFinalized'
+import { ModalContractFinalized } from '../../components/modal/ModalContractFinalized/ModalContractFinalized'
 import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../../components/config/FirebaseConfig'
+import { Loading } from '../../components/loading/Loading'
 
 export const Contract = () => {
     const { user, tokenApi, getTokenApi } = useContext(AuthContext)
@@ -19,9 +20,12 @@ export const Contract = () => {
     const [cache, setCache] = useState('')
     const [date, setDate] = useState('')
     const [address, setAddress] = useState('')
+    const [removeLoading, setRemoveLoading] = useState(true)
 
     const saveContract = async (e) => {
         e.preventDefault()
+
+        setRemoveLoading(false)
 
         try {
           const docRef = await addDoc(collection(db, "users", user.uid, "contracts"), {
@@ -34,6 +38,7 @@ export const Contract = () => {
           });
           console.log("Document written with ID: ", docRef.id);
           setOpen(true)
+          setRemoveLoading(true)
         } catch (e) {
           console.error("Error adding document: ", e);
         }
@@ -90,12 +95,13 @@ export const Contract = () => {
         </div>
         <form onSubmit={saveContract}>
             <h2>Cachê (Digite só os números e a vírgula)<span>*</span></h2>
-            <input type="text" placeholder='Informe o cachê do artista' onChange={(e) => setCache(e.target.value)} required />
+            <input type="number" placeholder='Informe o cachê do artista' onChange={(e) => setCache(e.target.value)} required />
             <h2>Data do evento <span>*</span></h2>
             <input type="date" onChange={(e) => setDate(e.target.value)} required />
             <h2>Endereço do evento <span>*</span></h2>
             <input type="text" placeholder='Informe o endereço do evento' onChange={(e) => setAddress(e.target.value)} required/>
             <button type="submit">Finalizar</button>
+            {!removeLoading && <Loading />}
             <ModalContractFinalized isOpen={open} />
         </form>
     </div>

@@ -5,11 +5,13 @@ import { db } from '../../components/config/FirebaseConfig'
 import styles from './MyContracts.module.css'
 import { Link } from 'react-router-dom'
 import backIcon from '../../assets/arrow_back_icon.png'
+import { Loading } from '../../components/loading/Loading'
 
 export const MyContracts = () => {
 
     const { user } = useContext(AuthContext)
     const [contracts, setContracts] = useState('')
+    const [removeLoading, setRemoveLoading] = useState(false)
 
     const getContracts = async () => {
         const querySnapshot = await getDocs(collection(db, "users", user.uid, "contracts"));
@@ -20,6 +22,7 @@ export const MyContracts = () => {
               ...doc.data(),
             }))
             setContracts(contractsRes)
+            setRemoveLoading(true)
       }
 
     useEffect(() => {
@@ -40,12 +43,13 @@ export const MyContracts = () => {
                     <span>{contract.genre}</span>
                 </div>
               </div>
-              <h3>Cachê: <span>{contract.cache}</span></h3>
+              <h3>Cachê: <span>R$ {contract.cache}</span></h3>
               <h3>Data: <span>{contract.date}</span></h3>
             </Link>
-              )) : <div className={styles.addContract}>
-                Nenhum contrato
+              )) : <div>
+                Você não tem nenhum contrato
               </div>}
+              {!removeLoading && <Loading />}
         </section>
     </div>
   )

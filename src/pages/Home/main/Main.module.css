@@ -65,8 +65,8 @@
     border: 1px solid black;
     border-radius: 10px;
     padding: 0px 30px 10px;
+    margin-top: 20px;
     cursor: pointer;
-
 }
 
 .addContract h2 {
@@ -113,6 +113,10 @@
 }
 
 .contracts h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
     margin-top: 10px;
     font-size: 1.1em;
 }
@@ -129,7 +133,7 @@
 
 @media (min-width: 1024px) {
     .main {
-        padding: 20px 100px;
+        padding: 20px 140px;
     }
 
     .main > h2 {

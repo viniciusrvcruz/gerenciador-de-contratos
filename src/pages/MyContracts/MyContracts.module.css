@@ -73,6 +73,10 @@
 }
 
 .contracts h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
     margin-top: 10px;
     font-size: 1.1em;
 }

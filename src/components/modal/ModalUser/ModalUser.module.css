@@ -1,0 +1,89 @@
+.userOptionsContainer {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.836);
+    display: flex;
+    justify-content: right;
+    align-items: flex-start;
+}
+
+.userOptions {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    background-color: white;
+    width: 250px;
+    padding: 15px;
+    margin: 10px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.205);
+    border-radius: 5px;
+}
+
+.userInfo {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    padding: 0px 15px 10px 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.363);
+}
+
+.userInfo ul {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.userInfo li {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 200px;
+    gap: 5px;
+}
+
+.nameUser {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.emailUser {
+    display: -webkit-box;
+    font-size: .8em;
+    font-weight: normal;
+    -webkit-line-clamp: 1; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.myContracts {
+    padding: 10px 0px;
+}
+
+.myContracts a {
+    font-size: 1em;
+    font-weight: bold;
+    list-style: none;
+    cursor: pointer;
+}
+
+
+.sair {
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.363);
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}

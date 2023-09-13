@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from './ModalSearch.module.css'
-import searchIcon from '../../assets/search_icon.png'
-import backIcon from '../../assets/arrow_back_icon.png'
-import userIcon from '../../assets/user_icon.png'
-import { AuthContext } from '../../contexts/AuthProvider'
+import searchIcon from '../../../assets/search_icon.png'
+import backIcon from '../../../assets/arrow_back_icon.png'
+import userIcon from '../../../assets/user_icon.png'
+import { AuthContext } from '../../../contexts/AuthProvider'
 import { Link } from 'react-router-dom'
+import { Loading } from '../../../components/loading/Loading'
 
 export const ModalSearch = ({ isOpen, setOpen }) => {
 
@@ -12,6 +13,7 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
     const inputRef = useRef(null);
     const [nameArtist, setNameArtist] = useState('')
     const [result, setResult] = useState('')
+    const [removeLoading, setRemoveLoading] = useState(true)
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -22,6 +24,7 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
 
     const resultSearchArtist = async () => {    
 
+        setRemoveLoading(false)
         console.log('teste', !tokenApi.expires_in)
         if (!tokenApi || !tokenApi.expires_in) {
             getTokenApi()
@@ -43,6 +46,7 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
             console.log(data)
             const artists = data.artists.items
             setResult(artists)
+            setRemoveLoading(true)
         })
         .catch(error => {
             console.error('Erro ao pesquisar o artista:', error);
@@ -76,6 +80,7 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
                                 </div>
                             </Link>
                         ))}
+                        {!removeLoading && <Loading />}
                     </section>
                 </div>
             </div>
