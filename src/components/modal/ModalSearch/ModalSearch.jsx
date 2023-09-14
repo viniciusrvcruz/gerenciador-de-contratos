@@ -25,7 +25,7 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
     const resultSearchArtist = async () => {    
 
         setRemoveLoading(false)
-        console.log('teste', !tokenApi.expires_in)
+
         if (!tokenApi || !tokenApi.expires_in) {
             getTokenApi()
         }
@@ -39,11 +39,10 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
             }
         }
         
-        fetch(searchUrl, requestOptions)
+        await fetch(searchUrl, requestOptions)
         .then(response => response.json())
         .then(data => {
             // A resposta contém informações sobre os artistas correspondentes ao nome pesquisado.
-            console.log(data)
             const artists = data.artists.items
             setResult(artists)
             setRemoveLoading(true)

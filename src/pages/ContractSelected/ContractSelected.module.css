@@ -12,6 +12,7 @@
 .back {
     position: absolute;
     left: 20px;
+    top: 95px;
     width: 30px;
     cursor: pointer;
 }
@@ -73,5 +74,9 @@
 
     .artistInfo h2, .artistInfo h3 {
         font-size: 1.5em;
+    }
+
+    .back {
+        left: 50px;
     }
 }

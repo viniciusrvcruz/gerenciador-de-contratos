@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import userIcon from '../../../assets/user_icon.png'
 import styles from './ModalUser.module.css'
-import { AuthContext } from '../../../contexts/authProvider'
+import { AuthContext } from '../../../contexts/AuthProvider'
 
 export const ModalUser = ({ user, isOpen, setOpen }) => {
     const { logout } = useContext(AuthContext)

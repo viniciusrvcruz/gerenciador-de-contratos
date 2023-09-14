@@ -49,7 +49,7 @@
     margin-left: 10px;
 }
 
-.myContracts {
+.myContracts, .topArtists {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -78,7 +78,7 @@
     text-align: center;
 }
 
-.contracts {
+.contracts, .topArtist {
     display: inline-block;
     text-decoration: none;
     color: black;
@@ -148,7 +148,7 @@
         width: 60%;
     }
 
-    .contracts {
+    .contracts, .topArtist {
         margin: 20px;
         width: 240px;
         height: 140px;

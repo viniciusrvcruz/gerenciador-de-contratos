@@ -8,12 +8,14 @@ import { ModalContractFinalized } from '../../components/modal/ModalContractFina
 import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../../components/config/FirebaseConfig'
 import { Loading } from '../../components/loading/Loading'
+import { Input } from '../../components/input/Input'
 
 export const Contract = () => {
     const { user, tokenApi, getTokenApi } = useContext(AuthContext)
     const { idArtist } = useParams();
 
     const [open, setOpen] = useState(false)
+    const [name, setName] = useState('')
     const [nameArtist, setNameArtist] = useState('')
     const [imageArtist, setImageArtist] = useState('')
     const [genreArtist, setGenreArtist] = useState('')
@@ -29,14 +31,15 @@ export const Contract = () => {
 
         try {
           const docRef = await addDoc(collection(db, "users", user.uid, "contracts"), {
-            name: nameArtist,
+            name: name,
+            nameArtist: nameArtist,
             image: imageArtist,
             genre: genreArtist,
             cache: cache,
             date: date,
             address: address
           });
-          console.log("Document written with ID: ", docRef.id);
+
           setOpen(true)
           setRemoveLoading(true)
         } catch (e) {
@@ -94,12 +97,25 @@ export const Contract = () => {
             </div>
         </div>
         <form onSubmit={saveContract}>
+            <h2>Nome do contratante <span>*</span></h2>
+            <Input type='text' 
+            placeholder='Informe o seu nome do contratante' 
+            setValue={setName}/>
+
             <h2>Cachê (Digite só os números e a vírgula)<span>*</span></h2>
-            <input type="number" placeholder='Informe o cachê do artista' onChange={(e) => setCache(e.target.value)} required />
+            <Input type='number' 
+            placeholder='Informe o cachê do artista' 
+            setValue={setCache}/>
+
             <h2>Data do evento <span>*</span></h2>
-            <input type="date" onChange={(e) => setDate(e.target.value)} required />
+            <Input type='date' 
+            setValue={setDate}/>
+
             <h2>Endereço do evento <span>*</span></h2>
-            <input type="text" placeholder='Informe o endereço do evento' onChange={(e) => setAddress(e.target.value)} required/>
+            <Input type='text' 
+            placeholder='Informe o endereço do evento' 
+            setValue={setAddress}/>
+
             <button type="submit">Finalizar</button>
             {!removeLoading && <Loading />}
             <ModalContractFinalized isOpen={open} />

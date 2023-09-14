@@ -15,8 +15,8 @@ export const Login = () => {
     if(!signed) {
         return (
             <div className={styles.login}>
-                <h1>Bem vindo ao</h1>
-                <h2>Gerenciador de Contrados</h2>
+                <h1><span>Bem vindo</span> ao</h1>
+                <h2>Gerenciador de Contrados da ES</h2>
                 <p>Aqui você poderá fazer e gerenciar seus contratos com artistas e bandas</p>
                 <h3>Faça login para entrar</h3>
                 <button onClick={loginGoogle}><img src={imgGoogle}/><span>Entrar com o Google</span></button>

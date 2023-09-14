@@ -7,12 +7,15 @@ import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../../components/config/FirebaseConfig'
 import { AuthContext } from '../../../contexts/AuthProvider'
 import { Loading } from '../../../components/loading/Loading'
+import { ArtistItem } from '../../../components/artistItem/ArtistItem'
+import { ContractItem } from '../../../components/contractItem/ContractItem'
 
 export const Main = () => {
 
-  const { user } = useContext(AuthContext)
+  const { user, tokenApi, getTokenApi } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
   const [contracts, setContracts] = useState('')
+  const [result, setResult] = useState('')
   const [removeLoading, setRemoveLoading] = useState(false)
 
   const getContracts = async () => {
@@ -26,8 +29,38 @@ export const Main = () => {
         setRemoveLoading(true)
   }
 
+  const resultTopArtists = async () => {    
+
+    setRemoveLoading(false)
+    getTokenApi()
+
+    const artistIds = ['4fdCGYM7dtJLa3LvR1ccto', '2aKyKSggb31Kw9s9i3iXoo', '2tswayWsUGjUwpvN8KRwuN', '4AeWCU2yUgVFbqKmOezL75'];
+
+    const searchUrl = `https://api.spotify.com/v1/artists?ids=${encodeURIComponent(artistIds)}`;
+    
+    
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${tokenApi}`
+        }
+    }
+    
+    await fetch(searchUrl, requestOptions)
+    .then(response => response.json())
+    .then(artist => {
+        // A resposta contém informações sobre os artistas correspondentes ao nome pesquisado.
+        setResult(artist)
+        setRemoveLoading(true)
+    })
+    .catch(error => {
+        console.error('Erro ao pesquisar o artista:', error);
+    });
+}
+
   useEffect(() => {
     getContracts()
+    resultTopArtists()
   }, [])
 
   return (
@@ -42,19 +75,23 @@ export const Main = () => {
         <ModalSearch isOpen={open} setOpen={setOpen}/>
         <h2>Meus contratos</h2>
         <div className={styles.myContracts}>   
-            {contracts > [0] ? contracts.map((contract, index) => (
+            {contracts.length > 0 ? (contracts.map((contract, index) => (
               <Link to={`/mycontracts/${contract.id}`} className={styles.contracts} key={index}>
-              <div className={styles.artistName}>
-                <img src={contract.image} alt="Imagem" />
-                <h2>{contract.name}</h2>
-              </div>
-              <h3>Cachê: <span>R$ {contract.cache}</span></h3>
-              <h3>Data: <span>{contract.date}</span></h3>
+                <ContractItem contract={contract}/>
             </Link>
-              )) : <div className={styles.addContract} onClick={() => setOpen(!open)}>
+              ))) : (<div className={styles.addContract} onClick={() => setOpen(!open)}>
                 <h2>+</h2>
                 <h3>Adicione um <br/>contrato</h3>
-              </div>}
+              </div>)}
+              {!removeLoading && <Loading />}
+        </div>
+        <h2>Top Artistas Gospel</h2>
+        <div className={styles.topArtists}>
+        {result && result.artists.map((artist, index) => (
+              <Link to={`/contract/${artist.id}`} className={styles.topArtist} key={index}>
+                <ArtistItem artist={artist} />
+              </Link>
+                ))}
               {!removeLoading && <Loading />}
         </div>
     </main>

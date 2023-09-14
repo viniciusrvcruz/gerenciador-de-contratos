@@ -1,0 +1,32 @@
+.artistItem > div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.artistItem > div h2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    font-size: 1.2em;
+}
+
+.artistItem img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.artistItem h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+
+.artistItem span {
+    color: rgba(0, 0, 0, 0.596);
+}

@@ -1,26 +1,29 @@
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../components/config/FirebaseConfig";
 import { createContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 
+// Create a GoogleAuthProvider instance for Google OAuth authentication
 const provider = new GoogleAuthProvider();
+
+// Create an AuthContext to manage authentication state
 export const AuthContext = createContext({})
 
+// Define an AuthProvider component to manage authentication
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [tokenApi, setTokenApi] = useState('')
 
     useEffect(() => {
+        // Use onAuthStateChanged to listen for changes in authentication state
         const loadStoreAuth = () => {
             onAuthStateChanged(auth, (user) => {
                 setUser(user)
-                console.log('teste')
-                  // ...
               });
         }
         loadStoreAuth()
     }, [])
 
+    // Function to obtain an API token from Spotify
     const getTokenApi = async() => {
         const clientId = "691c10007d1541cea6786e3d0b214b7e";
         const clientSecret = "5117f73779664a24b0b1949b98ac027e";
@@ -36,13 +39,12 @@ export const AuthProvider = ({ children }) => {
         
         const tokenUrl = 'https://accounts.spotify.com/api/token';
         
-        // Enviar a solicitação
+        // Send the API token request
         fetch(tokenUrl, requestOptions)
         .then(response => response.json())
         .then(data => {
-            // Aqui, você pode acessar o token de acesso na variável 'data.access_token'
+            // Access the access token in 'data.access_token'
             const accessToken = data.access_token;
-            console.log('Token de Acesso:', accessToken);
             setTokenApi(accessToken)
         })
         .catch(error => {
@@ -50,6 +52,7 @@ export const AuthProvider = ({ children }) => {
         });
     }
 
+    // Function to sign in with Google
     const signInGoogle = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
@@ -63,10 +66,12 @@ export const AuthProvider = ({ children }) => {
             });
     }
 
+    // Function to log out
     const logout = async () => {
         await signOut(auth)
       } 
 
+    // Provide authentication-related functions and state to child components
     return (
         <AuthContext.Provider value={{ signInGoogle, logout, signed: !!user, user, tokenApi, getTokenApi }}>{ children }</AuthContext.Provider>
     )

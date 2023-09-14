@@ -41,11 +41,13 @@ export const ContractSelected = () => {
                 <div>
                     <img src={contract.image} alt="Image artist" />
                     <div className={styles.artistInfo}>
-                        <h2>Nome: {contract.name}</h2>
+                        <h2>Nome: {contract.nameArtist}</h2>
                         <h3>Gênero: {contract.genre}</h3>
                     </div>
                 </div>
                 <section>
+                    <h2>Nome do contratante</h2>
+                    <h3>{contract.name}</h3>
                     <h2>Cachê</h2>
                     <h3>R$ {contract.cache}</h3>
                     <h2>Data do evento</h2>

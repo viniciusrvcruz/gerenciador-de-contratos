@@ -39,7 +39,7 @@ export const MyContracts = () => {
               <div className={styles.artistName}>
                 <img src={contract.image} alt="Imagem" />
                 <div>
-                    <h2>{contract.name}</h2>
+                    <h2>{contract.nameArtist}</h2>
                     <span>{contract.genre}</span>
                 </div>
               </div>
