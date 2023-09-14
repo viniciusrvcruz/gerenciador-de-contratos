@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../contexts/authProvider'
+import { AuthContext } from '../contexts/AuthProvider'
 import { Navigate, Outlet } from 'react-router-dom'
 import { Loading } from '../components/loading/Loading';
 

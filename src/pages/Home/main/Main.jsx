@@ -87,7 +87,7 @@ export const Main = () => {
         </div>
         <h2>Top Artistas Gospel</h2>
         <div className={styles.topArtists}>
-        {result && result.artists.map((artist, index) => (
+        {result && result.artists &&  result.artists.map((artist, index) => (
               <Link to={`/contract/${artist.id}`} className={styles.topArtist} key={index}>
                 <ArtistItem artist={artist} />
               </Link>
