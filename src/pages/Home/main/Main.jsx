@@ -49,7 +49,7 @@ export const Main = () => {
     await fetch(searchUrl, requestOptions)
     .then(response => response.json())
     .then(artist => {
-        // A resposta contém informações sobre os artistas correspondentes ao nome pesquisado.
+        // The response contains information about the artists corresponding to the searched id.
         setResult(artist)
         setRemoveLoading(true)
     })
