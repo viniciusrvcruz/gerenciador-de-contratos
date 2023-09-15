@@ -63,7 +63,7 @@ export const Contract = () => {
         fetch(searchUrl, requestOptions)
         .then(response => response.json())
         .then(artist => {
-            // A resposta contém informações sobre os artistas correspondentes ao nome pesquisado.
+            // The response contains information about the artists corresponding to the searched name.
             setNameArtist(artist.name)
             if(artist.images[0]) {
                 setImageArtist(artist.images[0].url)
