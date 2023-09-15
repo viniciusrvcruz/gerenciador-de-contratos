@@ -8,7 +8,7 @@ export const PrivateRoutes = () => {
   const { signed } = useContext(AuthContext)
 
   useEffect(() => {
-    // Simule um atraso de 1 segundo (1000 milissegundos)
+    // 0.5 second delay (500 milliseconds)
     setTimeout(() => {
       setAuthChecked(true);
     }, 500);
@@ -19,7 +19,7 @@ export const PrivateRoutes = () => {
   return authChecked ? (
     signed ? <Outlet /> : <Navigate to='/' />
   ) : (
-    // Você pode mostrar um componente de carregamento aqui
+    
     <Loading />
   );
 }
