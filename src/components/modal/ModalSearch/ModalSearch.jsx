@@ -17,7 +17,7 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-          // Chame sua função aqui
+          
           resultSearchArtist();
         }
       };
@@ -42,7 +42,7 @@ export const ModalSearch = ({ isOpen, setOpen }) => {
         await fetch(searchUrl, requestOptions)
         .then(response => response.json())
         .then(data => {
-            // A resposta contém informações sobre os artistas correspondentes ao nome pesquisado.
+            // The response contains information about the artists corresponding to the searched name.
             const artists = data.artists.items
             setResult(artists)
             setRemoveLoading(true)
