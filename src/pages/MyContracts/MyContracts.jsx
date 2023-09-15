@@ -16,7 +16,6 @@ export const MyContracts = () => {
     const getContracts = async () => {
         const querySnapshot = await getDocs(collection(db, "users", user.uid, "contracts"));
     
-            //setDados(querySnapshot.data().treino)
             const contractsRes = querySnapshot.docs.map((doc) => ({
               id: doc.id,
               ...doc.data(),
